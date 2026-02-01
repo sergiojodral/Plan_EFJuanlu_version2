@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Programa Fuerza 6 semanas – IES Marqués de Comares</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root{
+      --bg:#020617;
+      --card:#0b1220;
+      --accent:#22c55e;
+      --accent2:#38bdf8;
+      --danger:#ef4444;
+      --border:#1f2937;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:var(--font);
+      color:var(--text);
+      padding:12px;
+      background:
+        radial-gradient(600px 260px at 10% 0%, rgba(56,189,248,.25), transparent 60%),
+        radial-gradient(520px 260px at 90% 10%, rgba(34,197,94,.18), transparent 60%),
+        radial-gradient(900px 380px at 50% 110%, rgba(34,197,94,.10), transparent 60%),
+        #020617;
+      overflow-x:hidden;
+    }
+
+    .layout{max-width:620px;margin:0 auto 20px}
+
+    header{
+      position:relative;
+      margin-bottom:14px;
+      padding:14px 12px 10px;
+      border-radius:18px;
+      border:1px solid rgba(51,65,85,.9);
+      background:
+        radial-gradient(700px 260px at 20% 0%, rgba(56,189,248,.16), transparent 55%),
+        radial-gradient(600px 260px at 90% 30%, rgba(34,197,94,.14), rgba(2,6,23,.92));
+      box-shadow: 0 18px 44px rgba(15,23,42,.75);
+      overflow:hidden;
+    }
+
+    .header-art{
+      position:absolute; inset:-40px -30px auto auto;
+      width:220px; height:220px;
+      opacity:.18;
+      transform:rotate(18deg);
+      pointer-events:none;
+    }
+
+    header h1{
+      display:flex; align-items:center; gap:10px;
+      font-size:1.35rem;
+      margin-bottom:6px;
+      letter-spacing:.2px;
+    }
+
+    .logo{
+      width:46px;height:46px;border-radius:16px;
+      display:inline-flex;align-items:center;justify-content:center;
+      background: radial-gradient(circle at 30% 30%, #facc15, #ea580c);
+      border:2px solid rgba(15,23,42,.9);
+      box-shadow:0 0 25px rgba(250,204,21,.45);
+      font-size:1.6rem;
+    }
+
+    header p{color:var(--muted);font-size:.86rem;line-height:1.25}
+
+    .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+    .chip{
+      font-size:.75rem;
+      padding:4px 9px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.28);
+      background: radial-gradient(circle at top, rgba(56,189,248,.18), rgba(15,23,42,.94));
+      color:var(--muted);
+      display:inline-flex;gap:6px;align-items:center;
+    }
+    .chip strong{color:var(--accent2)}
+
+    .card{
+      position:relative;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,.12), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(34,197,94,.10), rgba(2,6,23,.96));
+      border-radius:18px;
+      border:1px solid rgba(51,65,85,.9);
+      padding:12px 12px 11px;
+      margin-bottom:12px;
+      box-shadow:
+        0 18px 40px rgba(15,23,42,.85),
+        0 0 0 1px rgba(15,23,42,.88);
+      overflow:hidden;
+      transition:transform .12s ease, border-color .12s ease, box-shadow .12s ease;
+    }
+    .card:hover{
+      transform:translateY(-2px);
+      border-color:rgba(56,189,248,.75);
+      box-shadow:0 22px 52px rgba(15,23,42,.92), 0 0 0 1px rgba(30,64,175,.55);
+    }
+
+    .section-header{
+      display:flex;justify-content:space-between;align-items:center;
+      gap:10px;margin-bottom:6px
+    }
+    .section-header h2{
+      font-size:.98rem;
+      display:flex;align-items:center;gap:8px
+    }
+    .section-header h2::before{
+      content:"★";
+      color:var(--accent2);
+      font-size:.9rem;
+      transform:translateY(-.5px);
+    }
+
+    .badge{
+      font-size:.7rem;
+      padding:3px 8px;
+      border-radius:999px;
+      background:linear-gradient(135deg, rgba(56,189,248,.18), rgba(34,197,94,.16));
+      color:#e0f2fe;
+      border:1px solid rgba(56,189,248,.58);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      white-space:nowrap;
+    }
+
+    .muted{font-size:.78rem;color:var(--muted);line-height:1.25}
+    .note{
+      margin-top:6px;
+      font-size:.76rem;
+      color:#cbd5e1;
+      background: rgba(2,6,23,.35);
+      border:1px dashed rgba(148,163,184,.35);
+      border-radius:12px;
+      padding:8px 10px;
+    }
+
+    label{display:block;font-size:.78rem;margin-bottom:3px;color:var(--muted)}
+    input, select{
+      width:100%;
+      padding:7px 9px;
+      font-size:.85rem;
+      border-radius:12px;
+      border:1px solid var(--border);
+      outline:none;
+      background: rgba(15,23,42,.95);
+      color:var(--text);
+    }
+    input:focus, select:focus{
+      border-color:var(--accent2);
+      box-shadow:0 0 0 1px rgba(56,189,248,.5);
+      background:#020617;
+    }
+
+    .row{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    @media (max-width:520px){ .grid-2{grid-template-columns:1fr} }
+
+    .btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+    .btn{
+      border:none;
+      padding:8px 13px;
+      border-radius:999px;
+      font-size:.82rem;
+      font-weight:700;
+      cursor:pointer;
+      background:linear-gradient(135deg, var(--accent2), #16a34a);
+      color:#071022;
+      text-transform:uppercase;
+      letter-spacing:.09em;
+      box-shadow:0 12px 24px rgba(56,189,248,.28);
+      transition:transform .08s ease, filter .08s ease, box-shadow .08s ease;
+      flex:1;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px);filter:brightness(1.05);box-shadow:0 16px 30px rgba(56,189,248,.35)}
+    .btn:active{transform:translateY(0);filter:brightness(.98);box-shadow:0 10px 18px rgba(56,189,248,.22)}
+
+    .btn-secondary{
+      background:rgba(15,23,42,.92);
+      color:var(--muted);
+      border:1px solid var(--border);
+      box-shadow:none;
+      flex:initial;
+      font-weight:650;
+      letter-spacing:.04em;
+      text-transform:none;
+    }
+
+    .pill-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+    .pill{
+      font-size:.75rem;
+      padding:4px 9px;
+      border-radius:999px;
+      border:1px solid rgba(55,65,81,.85);
+      background:rgba(15,23,42,.92);
+      color:var(--muted);
+      display:inline-flex;align-items:center;gap:6px;
+    }
+    .pill strong{color:var(--accent2)}
+    .profile-chips{display:flex;flex-wrap:wrap;gap:6px;font-size:.75rem;margin-top:6px}
+    .profile-chip{
+      padding:4px 9px;
+      border-radius:999px;
+      border:1px dashed rgba(75,85,99,.95);
+      background:rgba(15,23,42,.92);
+      color:var(--muted);
+      display:inline-flex;align-items:center;gap:6px;
+    }
+    .profile-chip strong{color:var(--text)}
+
+    .config-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    @media (max-width:520px){ .config-row{grid-template-columns:1fr} }
+
+    .plan-summary{font-size:.8rem;color:var(--muted);margin-top:2px}
+
+    .exercise-table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:.78rem;
+      margin-top:8px;
+      overflow:hidden;
+      border-radius:12px;
+      border:1px solid rgba(31,41,55,.95);
+      background:rgba(15,23,42,.88);
+    }
+    .exercise-table th, .exercise-table td{
+      border-bottom:1px solid rgba(30,64,175,.55);
+      padding:6px 8px;
+      text-align:left;
+    }
+    .exercise-table th{
+      font-weight:600;
+      color:var(--muted);
+      background:rgba(2,6,23,.8);
+      font-size:.74rem;
+      letter-spacing:.02em;
+    }
+    .exercise-name{font-weight:600;color:var(--text)}
+    .exercise-section-row td{
+      font-size:.74rem;
+      color:var(--accent2);
+      padding-top:10px;
+      border-bottom-color:rgba(37,99,235,.5);
+    }
+
+    .range-row{display:flex;align-items:center;gap:8px}
+    .range-row input[type="range"]{flex:1}
+    .range-row span{font-size:.8rem;width:28px;text-align:right;color:var(--muted)}
+
+    .log-list{
+      margin-top:8px;
+      max-height:240px;
+      overflow:auto;
+      border-radius:12px;
+      border:1px solid var(--border);
+      padding:6px;
+      background:rgba(15,23,42,.95);
+      font-size:.78rem;
+    }
+    .log-item{
+      padding:7px 6px;
+      border-bottom:1px solid rgba(31,41,55,.95);
+    }
+    .log-item:last-child{border-bottom:none}
+    .log-header{
+      display:flex;justify-content:space-between;gap:6px;
+      font-weight:600;
+    }
+    .log-meta{font-size:.73rem;color:var(--muted);margin-top:2px}
+
+    .log-header-row{
+      display:flex;justify-content:space-between;align-items:center;
+      margin-top:8px;margin-bottom:4px;gap:8px;
+    }
+
+    .progress-wrapper{margin-top:6px;font-size:.73rem;color:var(--muted)}
+    .progress-bar{
+      margin-top:4px;width:100%;height:7px;border-radius:999px;
+      background:rgba(15,23,42,.9);
+      overflow:hidden;border:1px solid rgba(31,41,55,.95);
+    }
+    .progress-bar-inner{
+      height:100%;width:0%;
+      border-radius:inherit;
+      background:linear-gradient(90deg, #22c55e, #38bdf8);
+      transition:width .25s ease;
+    }
+
+    /* ====== GRÁFICA CSS (barras) ====== */
+    .chart-box{
+      margin-top:10px;
+      padding:10px;
+      border-radius:14px;
+      border:1px solid rgba(51,65,85,.75);
+      background: radial-gradient(circle at top, rgba(56,189,248,.12), rgba(15,23,42,.92));
+    }
+    .chart-title{
+      display:flex;align-items:center;justify-content:space-between;gap:8px;
+      font-size:.82rem;font-weight:800;letter-spacing:.03em;
+      color:var(--text);
+      margin-bottom:6px;
+    }
+    .chart-sub{
+      font-size:.72rem;color:var(--muted);margin-bottom:8px;line-height:1.25;
+    }
+    .legend{
+      display:flex;gap:10px;flex-wrap:wrap;
+      font-size:.72rem;color:var(--muted);
+      margin-top:6px;
+    }
+    .dot{display:inline-block;width:10px;height:10px;border-radius:999px;margin-right:6px;vertical-align:-1px}
+    .dot.ini{background:rgba(56,189,248,.95)}
+    .dot.fin{background:rgba(34,197,94,.95)}
+
+    .metric{
+      padding:8px 8px 7px;
+      border-radius:12px;
+      border:1px dashed rgba(75,85,99,.7);
+      background:rgba(2,6,23,.35);
+      margin-bottom:8px;
+    }
+    .metric:last-child{margin-bottom:0}
+    .metric-head{
+      display:flex;justify-content:space-between;gap:10px;
+      font-size:.76rem;color:var(--muted);margin-bottom:6px;
+    }
+    .bars{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:end}
+    .barWrap{
+      height:56px;
+      border-radius:12px;
+      background:rgba(2,6,23,.55);
+      border:1px solid rgba(31,41,55,.95);
+      overflow:hidden;
+      display:flex;align-items:flex-end;
+      position:relative;
+    }
+    .bar{
+      width:100%;
+      height:0%;
+      border-radius:12px;
+      transition:height .35s ease;
+    }
+    .bar.ini{background:linear-gradient(180deg, rgba(56,189,248,.95), rgba(56,189,248,.35))}
+    .bar.fin{background:linear-gradient(180deg, rgba(34,197,94,.95), rgba(34,197,94,.35))}
+    .barLabel{
+      position:absolute; inset:auto 7px 6px 7px;
+      font-size:.72rem; color:rgba(229,231,235,.92);
+      display:flex;justify-content:space-between;gap:8px;
+      text-shadow:0 1px 2px rgba(0,0,0,.35);
+      pointer-events:none;
+    }
+
+    .canvasWrap{
+      margin-top:10px;
+      border-radius:14px;
+      border:1px solid rgba(51,65,85,.75);
+      background: rgba(2,6,23,.45);
+      padding:10px;
+      overflow:hidden;
+    }
+    canvas{
+      width:100%;
+      height:220px;
+      display:block;
+      border-radius:12px;
+      background: rgba(15,23,42,.75);
+      border:1px solid rgba(31,41,55,.95);
+    }
+
+    .toggle-row{
+      margin-top:10px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .toggle-hint{
+      font-size:.74rem;
+      color:var(--muted);
+      line-height:1.25;
+    }
+
+    footer{
+      max-width:620px;margin:0 auto;
+      padding:10px 4px 0;
+      border-top:1px solid rgba(15,23,42,.98);
+      font-size:.73rem;color:var(--muted);
+      display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap
+    }
+    footer span:last-child{color:var(--accent2);font-weight:700}
+
+    /* ========= PDF / IMPRESIÓN ========= */
+    #print-area-inicial, #print-area-full{display:none;}
+
+    @media print{
+      body{background:#fff;padding:0;color:#0b1220}
+      .layout, footer{display:none !important;}
+
+      body.print-inicial #print-area-inicial{display:block !important;}
+      body.print-full    #print-area-full{display:block !important;}
+
+      .pr{
+        padding:18px 18px 10px;
+        font-family:var(--font);
+        color:#0b1220;
+      }
+      .pr-card{
+        border:1px solid #e5e7eb;
+        border-radius:14px;
+        padding:12px;
+        margin-bottom:10px;
+      }
+      .pr-title{font-size:1.12rem;font-weight:900;margin-bottom:6px}
+      .pr-sub{color:#334155;font-size:.86rem;margin-bottom:10px}
+      .pr-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+      .pr-row{font-size:.9rem;margin:4px 0}
+      .pr-muted{color:#475569}
+      .pr-table{
+        width:100%;
+        border-collapse:collapse;
+        font-size:.85rem;
+        margin-top:8px;
+      }
+      .pr-table th,.pr-table td{
+        border-bottom:1px solid #e5e7eb;
+        padding:7px 6px;
+        text-align:left;
+      }
+      .pr-table th{color:#475569;font-weight:700;background:#f8fafc}
+      .pr-good{color:#16a34a;font-weight:800}
+      .pr-bad{color:#dc2626;font-weight:800}
+      .pr-note{font-size:.82rem;color:#475569;margin-top:6px}
+
+      /* Para que el contenido copiado de la gráfica rápida se vea bien en blanco */
+      #prf-grafico-css .chart-box,
+      #prf-grafico-css .metric{
+        border-color:#e5e7eb !important;
+        background:#fff !important;
+      }
+      #prf-grafico-css .barWrap{
+        border-color:#e5e7eb !important;
+        background:#fff !important;
+      }
+      #prf-grafico-css .metric-head,
+      #prf-grafico-css .legend,
+      #prf-grafico-css .chart-sub{
+        color:#475569 !important;
+      }
+      #prf-grafico-css .chart-title{
+        color:#0b1220 !important;
+      }
+      #prf-grafico-css .barLabel{
+        color:#0b1220 !important;
+        text-shadow:none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+    <header>
+      <svg class="header-art" viewBox="0 0 200 200" aria-hidden="true">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#38bdf8"/>
+            <stop offset="1" stop-color="#22c55e"/>
+          </linearGradient>
+        </defs>
+        <path d="M44,-58C58,-48,71,-39,78,-25C86,-11,89,8,83,25C77,42,62,58,44,66C26,74,5,74,-13,68C-31,62,-46,50,-56,35C-65,20,-70,2,-66,-14C-62,-30,-49,-44,-35,-55C-21,-66,-6,-74,8,-75C22,-76,44,-68,44,-58Z"
+              transform="translate(100 100)" fill="url(#g1)"/>
+        <circle cx="145" cy="60" r="10" fill="rgba(250,204,21,.9)"/>
+        <circle cx="155" cy="90" r="6" fill="rgba(250,204,21,.7)"/>
+      </svg>
+
+      <h1><span class="logo">💪</span> Fuerza 6 semanas · IES Marqués de Comares</h1>
+      <p>Pruebas iniciales → entreno voluntario → pruebas finales → compruebas tu mejora.</p>
+
+      <div class="chips">
+        <span class="chip">👤 <strong>Alumno:</strong> <span id="hdr-nombre">—</span></span>
+        <span class="chip">🏫 <strong>Curso:</strong> <span id="hdr-curso">—</span></span>
+        <span class="chip">📊 <strong>Estado:</strong> <span id="hdr-estado">falta pruebas iniciales</span></span>
+      </div>
+    </header>
+
+    <!-- 1. DATOS -->
+    <section class="card" id="sec-datos">
+      <div class="section-header">
+        <h2>1. Datos del alumno</h2>
+        <span class="badge">Se guarda solo</span>
+      </div>
+      <p class="muted">Rellena una vez. Se quedará guardado en este dispositivo.</p>
+
+      <div class="row">
+        <div class="grid-2">
+          <div>
+            <label for="alumno-nombre">Nombre / iniciales</label>
+            <input id="alumno-nombre" type="text" placeholder="Ej: A. Pérez" />
+          </div>
+          <div>
+            <label for="alumno-curso">Curso / grupo</label>
+            <input id="alumno-curso" type="text" placeholder="Ej: 4º ESO A" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="alumno-sexo">Sexo (opcional)</label>
+            <select id="alumno-sexo">
+              <option value="">Prefiero no decirlo</option>
+              <option value="m">Masculino</option>
+              <option value="f">Femenino</option>
+            </select>
+          </div>
+          <div>
+            <label for="alumno-deporte">Deporte principal (si haces)</label>
+            <input id="alumno-deporte" type="text" placeholder="Fútbol, baile, ninguno..." />
+          </div>
+        </div>
+
+        <div class="profile-chips">
+          <span class="profile-chip">👤 <strong id="chip-nombre">—</strong></span>
+          <span class="profile-chip">🏫 <strong id="chip-curso">—</strong></span>
+          <span class="profile-chip">⚽ Deporte: <strong id="chip-deporte">—</strong></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PRUEBAS INICIALES -->
+    <section class="card" id="sec-iniciales">
+      <div class="section-header">
+        <h2>2. Pruebas iniciales (semana 0)</h2>
+        <span class="badge">Antes de empezar</span>
+      </div>
+      <p class="muted">Rellena tus marcas del día de pruebas. Luego se comparan con las finales.</p>
+
+      <form id="form-pruebas-iniciales" class="row">
+        <div>
+          <label for="pi-fecha">Fecha pruebas iniciales</label>
+          <input id="pi-fecha" type="date" />
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="pi-flexiones">Flexiones máximas (rep)</label>
+            <input id="pi-flexiones" type="number" min="0" />
+          </div>
+          <div>
+            <label for="pi-sentadillas">Sentadillas en 30" (rep)</label>
+            <input id="pi-sentadillas" type="number" min="0" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="pi-plancha">Plancha isométrica (s)</label>
+            <input id="pi-plancha" type="number" min="0" />
+          </div>
+          <div>
+            <label for="pi-salto">Salto horizontal (cm)</label>
+            <input id="pi-salto" type="number" min="0" />
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn" type="submit">Guardar pruebas iniciales</button>
+          <button class="btn btn-secondary" type="button" id="btn-pdf-inicial" title="Guarda en PDF tus datos iniciales">
+            📄 PDF inicial (1+2)
+          </button>
+        </div>
+
+        <div class="note">
+          ✍️ <strong>Importante:</strong> además de guardarlo aquí, <strong>anótalo también en tu cuaderno</strong>
+          (por si cambias de móvil o se borran los datos del navegador).
+        </div>
+      </form>
+    </section>
+
+    <!-- 3. SESIÓN -->
+    <section class="card" id="sec-sesion">
+      <div class="section-header">
+        <h2>3. Sesión de fuerza voluntaria</h2>
+        <span class="badge">Trabajo 6 semanas</span>
+      </div>
+      <p class="muted">Elige tipo de sesión y nivel. Te sale una sesión aleatoria para hoy.</p>
+
+      <div class="row">
+        <div class="config-row">
+          <div>
+            <label for="sesion-tipo">Tipo de sesión</label>
+            <select id="sesion-tipo">
+              <option value="A">Sesión A – Empuje / tronco superior</option>
+              <option value="B">Sesión B – Piernas / core</option>
+              <option value="C">Sesión C – Tirón / cuerpo completo</option>
+            </select>
+          </div>
+          <div>
+            <label for="sesion-nivel">Nivel</label>
+            <select id="sesion-nivel">
+              <option value="basico">Básico (empezando)</option>
+              <option value="medio" selected>Medio</option>
+              <option value="avanzado">Alto</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn" type="button" id="btn-generar-sesion">Generar sesión aleatoria de hoy</button>
+        </div>
+
+        <div class="pill-row">
+          <span class="pill">📅 Hoy: <strong id="hoy-fecha"></strong></span>
+          <span class="pill">🎯 Objetivo: <strong>3 sesiones/semana</strong></span>
+          <span class="pill">✅ Hechas: <strong id="resumen-sesiones-6s">0 sesiones en 6 semanas</strong></span>
+        </div>
+
+        <div class="progress-wrapper">
+          <span>Progreso (0–18 sesiones):</span>
+          <div class="progress-bar">
+            <div class="progress-bar-inner" id="progreso-barra"></div>
+          </div>
+        </div>
+
+        <p class="plan-summary" id="plan-resumen">Elige arriba la sesión y pulsa “Generar sesión aleatoria de hoy”.</p>
+        <div id="plan-contenido"></div>
+      </div>
+    </section>
+
+    <!-- 4. REGISTRAR -->
+    <section class="card" id="sec-registro">
+      <div class="section-header">
+        <h2>4. Registrar sesión</h2>
+        <span class="badge">Constancia</span>
+      </div>
+      <p class="muted">Solo cuenta si realmente la has hecho. RPE = esfuerzo de 1 (fácil) a 10 (máximo).</p>
+
+      <form id="form-sesion" class="row">
+        <div class="grid-2">
+          <div>
+            <label>Energía inicial (1–10)</label>
+            <div class="range-row">
+              <input id="sesion-energia" type="range" min="1" max="10" value="6" />
+              <span id="sesion-energia-valor">6</span>
+            </div>
+          </div>
+          <div>
+            <label>Esfuerzo percibido RPE (1–10)</label>
+            <div class="range-row">
+              <input id="sesion-rpe" type="range" min="1" max="10" value="7" />
+              <span id="sesion-rpe-valor">7</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label for="sesion-cumplimiento">Cumplimiento</label>
+          <select id="sesion-cumplimiento">
+            <option value="completo">He hecho toda la sesión</option>
+            <option value="parcial">He hecho la mayor parte</option>
+            <option value="ligero">He hecho algo muy ligero</option>
+            <option value="no-entreno">Hoy no he entrenado</option>
+          </select>
+        </div>
+
+        <button class="btn" type="submit">Guardar sesión de hoy</button>
+      </form>
+
+      <div class="log-header-row">
+        <strong style="font-size:.82rem;">Sesiones registradas (últimas 6 semanas)</strong>
+        <button class="btn-secondary" type="button" id="btn-reset-sesiones" style="font-size:.72rem;padding:5px 9px;">
+          Reset
+        </button>
+      </div>
+
+      <div class="log-list" id="log-list">
+        <div class="muted">Sin sesiones aún. Empieza esta semana.</div>
+      </div>
+    </section>
+
+    <!-- 5. FINALES + COMPARATIVA -->
+    <section class="card" id="sec-finales">
+      <div class="section-header">
+        <h2>5. Pruebas finales (semana 4–5)</h2>
+        <span class="badge">Ver mejoras</span>
+      </div>
+      <p class="muted">
+        Cuando hagáis las pruebas finales, rellena aquí. Abajo verás la comparativa y, si quieres, las gráficas.
+      </p>
+
+      <form id="form-pruebas-finales" class="row">
+        <div>
+          <label for="pf-fecha">Fecha pruebas finales</label>
+          <input id="pf-fecha" type="date" />
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="pf-flexiones">Flexiones máximas (rep)</label>
+            <input id="pf-flexiones" type="number" min="0" />
+          </div>
+          <div>
+            <label for="pf-sentadillas">Sentadillas en 30" (rep)</label>
+            <input id="pf-sentadillas" type="number" min="0" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div>
+            <label for="pf-plancha">Plancha isométrica (s)</label>
+            <input id="pf-plancha" type="number" min="0" />
+          </div>
+          <div>
+            <label for="pf-salto">Salto horizontal (cm)</label>
+            <input id="pf-salto" type="number" min="0" />
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn" type="submit">Guardar pruebas finales y ver comparativa</button>
+          <button class="btn btn-secondary" type="button" id="btn-pdf-full" title="Informe completo en PDF">
+            📄 PDF completo (todo)
+          </button>
+        </div>
+      </form>
+
+      <div class="log-header-row" style="margin-top:10px;">
+        <strong style="font-size:.82rem;">Comparativa inicial vs final</strong>
+      </div>
+
+      <div class="log-list" id="comparativa-list">
+        <div class="muted">Cuando tengas iniciales y finales se mostrará aquí la evolución.</div>
+      </div>
+
+      <!-- Botón “pestaña” para gráficas comparativas -->
+      <div class="toggle-row">
+        <button class="btn btn-secondary" type="button" id="btn-toggle-graficas" style="padding:7px 12px;">
+          📈 Gráficas comparativas
+        </button>
+        <div class="toggle-hint" id="hint-graficas">
+          Pulsa para ver las gráficas (más claro que dentro de la tabla).
+        </div>
+      </div>
+
+      <!-- Contenedor de gráficas (se muestra/oculta) -->
+      <div id="graficas-wrap" style="display:none;">
+        <div id="grafico-css" class="chart-box" style="display:none;"></div>
+
+        <div id="grafico-canvas-wrap" class="canvasWrap" style="display:none;">
+          <div class="chart-title">
+            <span>🎯 Gráfica “pro” (canvas)</span>
+            <span style="font-size:.72rem;color:var(--muted);font-weight:800;">Inicial vs Final</span>
+          </div>
+          <div class="chart-sub">
+            Se dibuja cada prueba con su propia escala para que se vea claro (sin “barras enanas”).
+          </div>
+          <canvas id="canvas-grafico" width="900" height="280"></canvas>
+          <div class="legend">
+            <span><span class="dot ini"></span>Inicial</span>
+            <span><span class="dot fin"></span>Final</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <span>El objetivo no es ser el mejor de la clase, es mejorar tus propios datos.</span>
+    <span>En 6 semanas se nota si has sido constante.</span>
+  </footer>
+
+  <!-- ========= PDF INICIAL (solo 1+2) ========= -->
+  <div id="print-area-inicial" class="pr" aria-hidden="true">
+    <div class="pr-card">
+      <div class="pr-title">Registro inicial · Programa de Fuerza</div>
+      <div class="pr-sub" id="pri-subtitle">—</div>
+
+      <div class="pr-grid">
+        <div>
+          <div class="pr-row"><span class="pr-muted">Alumno:</span> <strong id="pri-nombre">—</strong></div>
+          <div class="pr-row"><span class="pr-muted">Curso:</span> <strong id="pri-curso">—</strong></div>
+          <div class="pr-row"><span class="pr-muted">Deporte:</span> <strong id="pri-deporte">—</strong></div>
+        </div>
+        <div>
+          <div class="pr-row"><span class="pr-muted">Fecha inicial:</span> <strong id="pri-fecha">—</strong></div>
+          <div class="pr-row"><span class="pr-muted">Centro:</span> <strong>IES Marqués de Comares</strong></div>
+        </div>
+      </div>
+
+      <div class="pr-note">
+        Consejo: guarda este PDF y <strong>apunta estos datos en tu cuaderno</strong>.
+      </div>
+    </div>
+
+    <div class="pr-card">
+      <div class="pr-title">Pruebas iniciales (semana 0)</div>
+      <table class="pr-table">
+        <thead>
+          <tr>
+            <th>Prueba</th>
+            <th>Marca</th>
+          </tr>
+        </thead>
+        <tbody id="pri-tabla"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========= PDF COMPLETO (TODOS LOS APARTADOS + GRÁFICAS) ========= -->
+  <div id="print-area-full" class="pr" aria-hidden="true">
+    <!-- Portada / Resumen -->
+    <div class="pr-card">
+      <div class="pr-title">Informe completo · Programa de Fuerza</div>
+      <div class="pr-sub" id="prf-subtitle">—</div>
+
+      <div class="pr-grid">
+        <div>
+          <div class="pr-row"><span class="pr-muted">Alumno:</span> <strong id="prf-nombre">—</strong></div>
+          <div class="pr-row"><span class="pr-muted">Curso:</span> <strong id="prf-curso">—</strong></div>
+          <div class="pr-row"><span class="pr-muted">Deporte:</span> <strong id="prf-deporte">—</strong></div>
+        </div>
+        <div>
+          <div class="pr-row"><span class="pr-muted">Estado:</span> <strong id="prf-estado">—</strong></div>
+          <div class="pr-row"><span class="pr-muted">Sesiones (últ. 6 semanas):</span> <strong id="prf-sesiones">—</strong></div>
+          <div class="pr-row"><span class="pr-muted">Fechas sesiones:</span> <strong id="prf-fechas">—</strong></div>
+        </div>
+      </div>
+
+      <div class="pr-note">Si la diferencia es positiva, has mejorado. Si es negativa, revisa constancia y descanso.</div>
+    </div>
+
+    <!-- 1. Datos del alumno -->
+    <div class="pr-card">
+      <div class="pr-title">1. Datos del alumno</div>
+      <div class="pr-grid">
+        <div>
+          <div class="pr-row"><span class="pr-muted">Nombre / iniciales:</span> <strong id="prf-a-nombre">—</strong></div>
+          <div class="pr-row"><span class="pr-muted">Curso / grupo:</span> <strong id="prf-a-curso">—</strong></div>
+        </div>
+        <div>
+          <div class="pr-row"><span class="pr-muted">Sexo (opcional):</span> <strong id="prf-a-sexo">—</strong></div>
+          <div class="pr-row"><span class="pr-muted">Deporte principal:</span> <strong id="prf-a-deporte">—</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Pruebas iniciales -->
+    <div class="pr-card">
+      <div class="pr-title">2. Pruebas iniciales (semana 0)</div>
+      <div class="pr-sub" id="prf-inicial-fecha">Fecha: —</div>
+      <table class="pr-table">
+        <thead>
+          <tr><th>Prueba</th><th>Marca</th></tr>
+        </thead>
+        <tbody id="prf-tabla-inicial"></tbody>
+      </table>
+      <div class="pr-note">Consejo: guarda este PDF y anótalo también en tu cuaderno.</div>
+    </div>
+
+    <!-- 3. Sesión de fuerza (última generada) -->
+    <div class="pr-card">
+      <div class="pr-title">3. Sesión de fuerza voluntaria (última generada)</div>
+      <div class="pr-sub" id="prf-plan-resumen">—</div>
+      <div id="prf-plan-contenido"></div>
+    </div>
+
+    <!-- 4. Sesiones registradas -->
+    <div class="pr-card">
+      <div class="pr-title">4. Sesiones registradas</div>
+      <div class="pr-sub">Últimas sesiones guardadas (máx. 12)</div>
+      <table class="pr-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Tipo</th>
+            <th>Nivel</th>
+            <th>Energía</th>
+            <th>RPE</th>
+            <th>Cumplimiento</th>
+          </tr>
+        </thead>
+        <tbody id="prf-tabla-sesiones"></tbody>
+      </table>
+    </div>
+
+    <!-- 5. Pruebas finales -->
+    <div class="pr-card">
+      <div class="pr-title">5. Pruebas finales (semana 4–5)</div>
+      <div class="pr-sub" id="prf-final-fecha">Fecha: —</div>
+      <table class="pr-table">
+        <thead>
+          <tr><th>Prueba</th><th>Marca</th></tr>
+        </thead>
+        <tbody id="prf-tabla-final"></tbody>
+      </table>
+    </div>
+
+    <!-- Comparativa -->
+    <div class="pr-card">
+      <div class="pr-title">Comparativa inicial vs final</div>
+      <div class="pr-sub" id="prf-periodo">Periodo: —</div>
+
+      <table class="pr-table" id="prf-tabla">
+        <thead>
+          <tr>
+            <th>Prueba</th>
+            <th>Inicial</th>
+            <th>Final</th>
+            <th>Diferencia</th>
+            <th>%</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <!-- Gráficas comparativas (2) -->
+    <div class="pr-card">
+      <div class="pr-title">Gráficas comparativas</div>
+      <div class="pr-sub">Inicial vs final (2 versiones)</div>
+
+      <div class="pr-row" style="margin-top:6px;"><strong>Gráfica rápida (barras)</strong></div>
+      <div id="prf-grafico-css"></div>
+
+      <div class="pr-row" style="margin-top:10px;"><strong>Gráfica “pro” (canvas)</strong></div>
+      <div class="pr-note">Se inserta como imagen para que salga en el PDF.</div>
+      <div style="margin-top:8px;">
+        <img id="prf-canvas-img" alt="Gráfica comparativa" style="width:100%;border:1px solid #e5e7eb;border-radius:12px;" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== CLAVES LOCALSTORAGE =====
+    const KEY_ALUMNO   = 'ies_mc_fuerza_alumno_v3';
+    const KEY_PRUEBAS  = 'ies_mc_fuerza_pruebas_v3';
+    const KEY_SESIONES = 'ies_mc_fuerza_sesiones_v3';
+
+    const METRICAS = [
+      { k:'flexiones', name:'Flexiones', unit:'rep' },
+      { k:'sentadillas', name:'Sentadillas 30"', unit:'rep' },
+      { k:'plancha', name:'Plancha', unit:'s' },
+      { k:'salto', name:'Salto horizontal', unit:'cm' }
+    ];
+
+    // Guardamos la última sesión generada para poder imprimirla en el PDF
+    let LAST_PLAN_RESUMEN = '';
+    let LAST_PLAN_HTML = '';
+
+    function guardarLocal(key, value){
+      try{ localStorage.setItem(key, JSON.stringify(value)); }
+      catch(e){ console.error('Error guardando', e); }
+    }
+    function leerLocal(key, porDefecto){
+      try{
+        const v = localStorage.getItem(key);
+        return v ? JSON.parse(v) : porDefecto;
+      }catch(e){
+        console.error('Error leyendo', e);
+        return porDefecto;
+      }
+    }
+
+    function escapeHTML(str){
+      return String(str ?? '')
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;');
+    }
+
+    function sexoLegible(v){
+      if (v === 'm') return 'Masculino';
+      if (v === 'f') return 'Femenino';
+      return '—';
+    }
+
+    function formatoFechaCorta(fechaStr){
+      if(!fechaStr) return '';
+      const d = new Date(fechaStr);
+      if(isNaN(d.getTime())) return fechaStr;
+      return d.toLocaleDateString('es-ES', { day:'2-digit', month:'2-digit' });
+    }
+    function formatoFechaLarga(fechaStr){
+      if(!fechaStr) return '';
+      const d = new Date(fechaStr);
+      if(isNaN(d.getTime())) return fechaStr;
+      return d.toLocaleDateString('es-ES', { day:'2-digit', month:'long', year:'numeric' });
+    }
+
+    // ===== ALUMNO =====
+    function cargarAlumno(){
+      const a = leerLocal(KEY_ALUMNO, { nombre:'', curso:'', sexo:'', deporte:'' });
+
+      document.getElementById('alumno-nombre').value  = a.nombre || '';
+      document.getElementById('alumno-curso').value   = a.curso || '';
+      document.getElementById('alumno-sexo').value    = a.sexo || '';
+      document.getElementById('alumno-deporte').value = a.deporte || '';
+
+      document.getElementById('hdr-nombre').textContent = a.nombre || '—';
+      document.getElementById('hdr-curso').textContent  = a.curso || '—';
+      document.getElementById('chip-nombre').textContent = a.nombre || '—';
+      document.getElementById('chip-curso').textContent  = a.curso || '—';
+      document.getElementById('chip-deporte').textContent= a.deporte || '—';
+
+      actualizarEstadoCabecera();
+    }
+
+    function guardarAlumnoAuto(){
+      const a = {
+        nombre: document.getElementById('alumno-nombre').value.trim(),
+        curso: document.getElementById('alumno-curso').value.trim(),
+        sexo: document.getElementById('alumno-sexo').value,
+        deporte: document.getElementById('alumno-deporte').value.trim()
+      };
+      guardarLocal(KEY_ALUMNO, a);
+
+      document.getElementById('hdr-nombre').textContent = a.nombre || '—';
+      document.getElementById('hdr-curso').textContent  = a.curso || '—';
+      document.getElementById('chip-nombre').textContent = a.nombre || '—';
+      document.getElementById('chip-curso').textContent  = a.curso || '—';
+      document.getElementById('chip-deporte').textContent= a.deporte || '—';
+
+      actualizarEstadoCabecera();
+    }
+
+    // ===== PRUEBAS =====
+    function cargarPruebas(){
+      const p = leerLocal(KEY_PRUEBAS, { inicial:null, final:null });
+
+      if(p.inicial){
+        document.getElementById('pi-fecha').value = p.inicial.fecha || '';
+        document.getElementById('pi-flexiones').value = p.inicial.flexiones ?? '';
+        document.getElementById('pi-sentadillas').value = p.inicial.sentadillas ?? '';
+        document.getElementById('pi-plancha').value = p.inicial.plancha ?? '';
+        document.getElementById('pi-salto').value = p.inicial.salto ?? '';
+      }
+      if(p.final){
+        document.getElementById('pf-fecha').value = p.final.fecha || '';
+        document.getElementById('pf-flexiones').value = p.final.flexiones ?? '';
+        document.getElementById('pf-sentadillas').value = p.final.sentadillas ?? '';
+        document.getElementById('pf-plancha').value = p.final.plancha ?? '';
+        document.getElementById('pf-salto').value = p.final.salto ?? '';
+      }
+
+      renderComparativa(p);
+      actualizarEstadoCabecera();
+    }
+
+    function guardarPruebasIniciales(ev){
+      ev.preventDefault();
+      const p = leerLocal(KEY_PRUEBAS, { inicial:null, final:null });
+
+      p.inicial = {
+        fecha: document.getElementById('pi-fecha').value || new Date().toISOString().slice(0,10),
+        flexiones: Number(document.getElementById('pi-flexiones').value) || 0,
+        sentadillas: Number(document.getElementById('pi-sentadillas').value) || 0,
+        plancha: Number(document.getElementById('pi-plancha').value) || 0,
+        salto: Number(document.getElementById('pi-salto').value) || 0
+      };
+
+      guardarLocal(KEY_PRUEBAS, p);
+      renderComparativa(p);
+      actualizarEstadoCabecera();
+      alert('Pruebas iniciales guardadas.');
+    }
+
+    function guardarPruebasFinales(ev){
+      ev.preventDefault();
+      const p = leerLocal(KEY_PRUEBAS, { inicial:null, final:null });
+
+      p.final = {
+        fecha: document.getElementById('pf-fecha').value || new Date().toISOString().slice(0,10),
+        flexiones: Number(document.getElementById('pf-flexiones').value) || 0,
+        sentadillas: Number(document.getElementById('pf-sentadillas').value) || 0,
+        plancha: Number(document.getElementById('pf-plancha').value) || 0,
+        salto: Number(document.getElementById('pf-salto').value) || 0
+      };
+
+      guardarLocal(KEY_PRUEBAS, p);
+      renderComparativa(p);
+      actualizarEstadoCabecera();
+      alert('Pruebas finales guardadas. Mira la comparativa.');
+    }
+
+    function actualizarEstadoCabecera(){
+      const p = leerLocal(KEY_PRUEBAS, { inicial:null, final:null });
+      let txt = 'falta pruebas iniciales';
+      if(p.inicial && !p.final) txt = 'en programa (falta pruebas finales)';
+      if(p.inicial && p.final) txt = 'programa completado';
+      document.getElementById('hdr-estado').textContent = txt;
+    }
+
+    // ===== COMPARATIVA + GRÁFICAS =====
+    function renderComparativa(p){
+      const cont = document.getElementById('comparativa-list');
+      const graficasWrap = document.getElementById('graficas-wrap');
+      const boxCSS = document.getElementById('grafico-css');
+      const wrapCanvas = document.getElementById('grafico-canvas-wrap');
+
+      if(!p || !p.inicial || !p.final){
+        cont.innerHTML = '<div class="muted">Necesitas tener guardadas las pruebas iniciales y finales.</div>';
+        graficasWrap.style.display = 'none';
+        boxCSS.style.display = 'none';
+        wrapCanvas.style.display = 'none';
+        return;
+      }
+
+      function fila(nombre, clave, unidad){
+        const ini = Number(p.inicial[clave] ?? 0);
+        const fin = Number(p.final[clave] ?? 0);
+        const dif = fin - ini;
+        const pct = ini > 0 ? ((dif / ini) * 100).toFixed(1) : '—';
+        const signo = dif > 0 ? '+' : '';
+        const color =
+          dif > 0 ? 'style="color:#22c55e;font-weight:800;"' :
+          dif < 0 ? 'style="color:#ef4444;font-weight:800;"' : '';
+
+        return `
+          <tr>
+            <td>${nombre}</td>
+            <td>${ini} ${unidad}</td>
+            <td>${fin} ${unidad}</td>
+            <td ${color}>${signo}${dif} ${unidad}</td>
+            <td ${color}>${pct === '—' ? '—' : signo + pct + ' %'}</td>
+          </tr>
+        `;
+      }
+
+      cont.innerHTML = `
+        <div style="padding:2px 2px 8px;">
+          <div class="muted" style="margin-bottom:6px;">
+            Cambios desde <strong style="color:#e5e7eb;">${formatoFechaCorta(p.inicial.fecha)}</strong>
+            hasta <strong style="color:#e5e7eb;">${formatoFechaCorta(p.final.fecha)}</strong>
+          </div>
+
+          <table class="exercise-table" style="font-size:.77rem;">
+            <thead>
+              <tr>
+                <th>Prueba</th>
+                <th>Inicial</th>
+                <th>Final</th>
+                <th>Diferencia</th>
+                <th>% cambio</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${fila('Flexiones','flexiones','rep')}
+              ${fila('Sentadillas 30"','sentadillas','rep')}
+              ${fila('Plancha','plancha','s')}
+              ${fila('Salto horizontal','salto','cm')}
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      // Preparar ambas gráficas (aunque estén ocultas)
+      renderGraficoCSS(p);
+      renderGraficoCanvas(p);
+
+      // Si ya estaban visibles, refrescar contenedor
+      if (graficasWrap.style.display === 'block') {
+        boxCSS.style.display = 'block';
+        wrapCanvas.style.display = 'block';
+      }
+    }
+
+    function renderGraficoCSS(p){
+      const box = document.getElementById('grafico-css');
+
+      const itemsHTML = METRICAS.map(m => {
+        const ini = Number(p.inicial[m.k] ?? 0);
+        const fin = Number(p.final[m.k] ?? 0);
+        const max = Math.max(1, ini, fin);
+        const hiIni = Math.round((ini / max) * 100);
+        const hiFin = Math.round((fin / max) * 100);
+
+        const dif = fin - ini;
+        const signo = dif > 0 ? '+' : '';
+        const difTxt = `${signo}${dif} ${m.unit}`;
+
+        return `
+          <div class="metric">
+            <div class="metric-head">
+              <span><strong style="color:#e5e7eb;">${m.name}</strong> <span style="opacity:.9;">(${m.unit})</span></span>
+              <span style="color:${dif>0?'#22c55e':(dif<0?'#ef4444':'#9ca3af')};font-weight:900;">
+                ${difTxt}
+              </span>
+            </div>
+            <div class="bars">
+              <div class="barWrap" title="Inicial">
+                <div class="bar ini" style="height:${hiIni}%;"></div>
+                <div class="barLabel"><span>Inicial</span><span><strong>${ini}</strong></span></div>
+              </div>
+              <div class="barWrap" title="Final">
+                <div class="bar fin" style="height:${hiFin}%;"></div>
+                <div class="barLabel"><span>Final</span><span><strong>${fin}</strong></span></div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      box.innerHTML = `
+        <div class="chart-title">
+          <span>📊 Gráfica rápida (barras)</span>
+          <span style="font-size:.72rem;color:var(--muted);font-weight:900;">Inicial vs Final</span>
+        </div>
+        <div class="chart-sub">
+          Perfecta para verlo “de un vistazo”.
+        </div>
+        ${itemsHTML}
+        <div class="legend">
+          <span><span class="dot ini"></span>Inicial</span>
+          <span><span class="dot fin"></span>Final</span>
+        </div>
+      `;
+      box.style.display = 'block';
+    }
+
+    function renderGraficoCanvas(p){
+      const canvas = document.getElementById('canvas-grafico');
+      if(!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width, H = canvas.height;
+
+      ctx.clearRect(0, 0, W, H);
+
+      const data = METRICAS.map(m => ({
+        label: m.name,
+        unit: m.unit,
+        ini: Number(p.inicial[m.k] ?? 0),
+        fin: Number(p.final[m.k] ?? 0)
+      }));
+
+      const pad = { l: 56, r: 18, t: 18, b: 64 };
+      const innerW = W - pad.l - pad.r;
+      const innerH = H - pad.t - pad.b;
+
+      ctx.strokeStyle = 'rgba(148,163,184,0.12)';
+      ctx.lineWidth = 1;
+      for(let i=0;i<=4;i++){
+        const y = pad.t + (innerH * i/4);
+        ctx.beginPath();
+        ctx.moveTo(pad.l, y);
+        ctx.lineTo(W - pad.r, y);
+        ctx.stroke();
+      }
+
+      const groupCount = data.length;
+      const groupW = innerW / groupCount;
+      const barW = Math.max(20, groupW * 0.22);
+      const gap = Math.max(12, groupW * 0.10);
+
+      function drawRoundedRect(x,y,w,h,r){
+        const rr = Math.min(r, w/2, h/2);
+        ctx.beginPath();
+        ctx.moveTo(x+rr,y);
+        ctx.arcTo(x+w,y,x+w,y+h,rr);
+        ctx.arcTo(x+w,y+h,x,y+h,rr);
+        ctx.arcTo(x,y+h,x,y,rr);
+        ctx.arcTo(x,y,x+w,y,rr);
+        ctx.closePath();
+      }
+
+      const colIniTop = 'rgba(56,189,248,0.95)';
+      const colIniBot = 'rgba(56,189,248,0.35)';
+      const colFinTop = 'rgba(34,197,94,0.95)';
+      const colFinBot = 'rgba(34,197,94,0.35)';
+
+      data.forEach((d, i) => {
+        const max = Math.max(1, d.ini, d.fin);
+        const hIni = (d.ini / max) * innerH;
+        const hFin = (d.fin / max) * innerH;
+
+        const baseX = pad.l + i * groupW + (groupW - (barW*2 + gap)) / 2;
+        const xIni = baseX;
+        const xFin = baseX + barW + gap;
+
+        const yIni = pad.t + (innerH - hIni);
+        const yFin = pad.t + (innerH - hFin);
+
+        const gIni = ctx.createLinearGradient(0, yIni, 0, pad.t + innerH);
+        gIni.addColorStop(0, colIniTop);
+        gIni.addColorStop(1, colIniBot);
+
+        const gFin = ctx.createLinearGradient(0, yFin, 0, pad.t + innerH);
+        gFin.addColorStop(0, colFinTop);
+        gFin.addColorStop(1, colFinBot);
+
+        ctx.fillStyle = gIni;
+        drawRoundedRect(xIni, yIni, barW, hIni, 12);
+        ctx.fill();
+
+        ctx.fillStyle = gFin;
+        drawRoundedRect(xFin, yFin, barW, hFin, 12);
+        ctx.fill();
+
+        // valores
+        ctx.fillStyle = 'rgba(229,231,235,0.88)';
+        ctx.font = '800 18px system-ui, -apple-system, Segoe UI, sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText(String(d.ini), xIni + 4, Math.max(pad.t + 18, yIni - 8));
+        ctx.fillText(String(d.fin), xFin + 4, Math.max(pad.t + 18, yFin - 8));
+
+        // etiqueta abajo
+        ctx.fillStyle = 'rgba(156,163,175,0.92)';
+        ctx.font = '800 15px system-ui, -apple-system, Segoe UI, sans-serif';
+        const label = d.label.replace(' horizontal','');
+        const tx = pad.l + i * groupW + groupW/2;
+        const ty = pad.t + innerH + 36;
+
+        ctx.textAlign = 'center';
+        ctx.fillText(label, tx, ty);
+        ctx.font = '700 13px system-ui, -apple-system, Segoe UI, sans-serif';
+        ctx.fillText(`(${d.unit})`, tx, ty + 16);
+        ctx.textAlign = 'left';
+      });
+
+      // ejes
+      ctx.strokeStyle = 'rgba(148,163,184,0.22)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(pad.l, pad.t);
+      ctx.lineTo(pad.l, pad.t + innerH);
+      ctx.lineTo(W - pad.r, pad.t + innerH);
+      ctx.stroke();
+
+      // mostrar contenedor
+      const wrap = document.getElementById('grafico-canvas-wrap');
+      if (wrap) wrap.style.display = 'block';
+    }
+
+    // ===== GENERACIÓN ALEATORIA DE SESIONES =====
+    function pickNombre(ej){
+      if(Array.isArray(ej.nombre)){
+        const idx = Math.floor(Math.random() * ej.nombre.length);
+        return ej.nombre[idx];
+      }
+      return ej.nombre;
+    }
+    function pickAlgunos(array, n){
+      const a = [...array];
+      const r = [];
+      const total = Math.min(n, a.length);
+      for(let i=0;i<total;i++){
+        const idx = Math.floor(Math.random() * a.length);
+        r.push(a[idx]);
+        a.splice(idx, 1);
+      }
+      return r;
+    }
+    function factorNivel(nivel){
+      if(nivel === 'basico') return 0.8;
+      if(nivel === 'avanzado') return 1.3;
+      return 1.0;
+    }
+
+    const poolEjercicios = {
+      A: {
+        calentamiento: [
+          { nombre:['Movilidad hombros + círculos de brazos'], seriesBase:1, reps:'8–10 mov.' },
+          { nombre:['Jumping jacks','Skipping suave'], seriesBase:1, reps:'30–40 s' },
+          { nombre:['Rotaciones de tronco + brazos arriba'], seriesBase:1, reps:'8–10 mov.' }
+        ],
+        principal: [
+          { nombre:['Flexiones apoyando rodillas','Flexiones inclinadas en banco'], seriesBase:3, reps:'8–15' },
+          { nombre:['Flexiones normales','Flexiones con manos estrechas'], seriesBase:3, reps:'6–12' },
+          { nombre:['Fondos en banco','Fondos entre dos bancos'], seriesBase:3, reps:'8–12' },
+          { nombre:['Plancha frontal'], seriesBase:3, reps:'20–40 s' },
+          { nombre:['Plancha con apoyo en manos'], seriesBase:3, reps:'15–30 s' },
+          { nombre:['Pase del oso (bear crawl)'], seriesBase:2, reps:'10–15 m' }
+        ],
+        extra: [
+          { nombre:['Flexiones pike (hombros)','Flexiones declinadas'], seriesBase:2, reps:'6–10' },
+          { nombre:['Plancha con toque de hombro'], seriesBase:2, reps:'10–16 toques' }
+        ]
+      },
+      B: {
+        calentamiento: [
+          { nombre:['Trote suave en el sitio'], seriesBase:1, reps:'30–40 s' },
+          { nombre:['Movilidad de cadera y tobillos'], seriesBase:1, reps:'8–10 mov.' },
+          { nombre:['Sentadillas muy suaves'], seriesBase:1, reps:'10–12' }
+        ],
+        principal: [
+          { nombre:['Sentadilla al aire'], seriesBase:3, reps:'12–20' },
+          { nombre:['Sentadilla con salto suave'], seriesBase:3, reps:'8–10' },
+          { nombre:['Zancadas hacia delante','Zancadas hacia atrás'], seriesBase:3, reps:'8–12 c/pierna' },
+          { nombre:['Puente de glúteo'], seriesBase:3, reps:'12–20' },
+          { nombre:['Plancha lateral'], seriesBase:2, reps:'15–30 s/lado' },
+          { nombre:['Dead bug (core)'], seriesBase:2, reps:'10–14 rep' },
+          { nombre:['Bird dog'], seriesBase:2, reps:'10–14 rep' }
+        ],
+        extra: [
+          { nombre:['Saltos a la comba suaves'], seriesBase:2, reps:'20–40 s' },
+          { nombre:['Sentadilla isométrica en pared'], seriesBase:2, reps:'20–40 s' }
+        ]
+      },
+      C: {
+        calentamiento: [
+          { nombre:['Jumping jacks','Paso lateral rápido'], seriesBase:1, reps:'30–40 s' },
+          { nombre:['Movilidad de columna + brazos'], seriesBase:1, reps:'8–10 mov.' }
+        ],
+        principal: [
+          { nombre:['Remo invertido en barra','Remo en mesa robusta (cuerpo bajo)'], seriesBase:3, reps:'6–10' },
+          { nombre:['Remo con mochila (agarre neutro)'], seriesBase:3, reps:'8–12' },
+          { nombre:['Flexiones'], seriesBase:3, reps:'8–15' },
+          { nombre:['Sentadilla con salto controlado'], seriesBase:3, reps:'8–10' },
+          { nombre:['Burpee simplificado (sin flexión completa)'], seriesBase:2, reps:'6–10' },
+          { nombre:['Plancha + hollow hold'], seriesBase:3, reps:'20–30 s' }
+        ],
+        extra: [
+          { nombre:['Escaladores (mountain climbers)'], seriesBase:2, reps:'20–30 rep' },
+          { nombre:['Jumping lunges (zancadas con salto)'], seriesBase:2, reps:'6–10 c/pierna' }
+        ]
+      }
+    };
+
+    function generarSesionActual(){
+      const tipo = document.getElementById('sesion-tipo').value;
+      const nivel = document.getElementById('sesion-nivel').value;
+      const bloque = poolEjercicios[tipo];
+      const cont = document.getElementById('plan-contenido');
+
+      const resumen = {
+        A:'Empuje y tronco superior (pecho, tríceps, hombro, core).',
+        B:'Piernas y core (glúteos, cuádriceps, abdomen).',
+        C:'Tirón y cuerpo completo (espalda, piernas, core).'
+      }[tipo] || '';
+
+      document.getElementById('plan-resumen').textContent =
+        `Sesión ${tipo} · ${resumen} · Nivel ${nivel.toUpperCase()}. Si ves que es demasiado, recorta 1 serie.`;
+
+      if(!bloque){
+        cont.innerHTML = '<div class="muted">Sin ejercicios definidos para este tipo.</div>';
+        LAST_PLAN_RESUMEN = document.getElementById('plan-resumen').textContent || '';
+        LAST_PLAN_HTML = cont.innerHTML || '';
+        return;
+      }
+
+      const f = factorNivel(nivel);
+      const cal = pickAlgunos(bloque.calentamiento || [], 2);
+      let numPrincipal = (nivel === 'basico') ? 3 : (nivel === 'medio' ? 4 : 5);
+      const prin = pickAlgunos(bloque.principal || [], numPrincipal);
+      const extra = (nivel !== 'basico' && bloque.extra && bloque.extra.length) ? pickAlgunos(bloque.extra, 1) : [];
+
+      const filas = [];
+      function addSectionHeader(texto){
+        filas.push(`<tr class="exercise-section-row"><td colspan="4"><em>${texto}</em></td></tr>`);
+      }
+      function addEjercicios(lista){
+        lista.forEach(e => {
+          let series = Math.round((e.seriesBase || 1) * f);
+          series = Math.min(5, Math.max(1, series));
+          const nombre = pickNombre(e);
+          filas.push(`
+            <tr>
+              <td><div class="exercise-name">${nombre}</div></td>
+              <td>${series}</td>
+              <td>${e.reps || '-'}</td>
+              <td>30–60 s</td>
+            </tr>
+          `);
+        });
+      }
+
+      if(cal.length){ addSectionHeader('Calentamiento'); addEjercicios(cal); }
+      if(prin.length){ addSectionHeader('Bloque principal'); addEjercicios(prin); }
+      if(extra.length){ addSectionHeader('Extra (opcional)'); addEjercicios(extra); }
+
+      cont.innerHTML = `
+        <table class="exercise-table">
+          <thead>
+            <tr>
+              <th>Ejercicio</th>
+              <th>Series</th>
+              <th>Reps / tiempo</th>
+              <th>Descanso</th>
+            </tr>
+          </thead>
+          <tbody>${filas.join('')}</tbody>
+        </table>
+      `;
+
+      // Guardar la última sesión generada para el PDF completo
+      LAST_PLAN_RESUMEN = document.getElementById('plan-resumen').textContent || '';
+      LAST_PLAN_HTML = cont.innerHTML || '';
+    }
+
+    // ===== SESIONES: REGISTRO =====
+    function obtenerSesiones(){ return leerLocal(KEY_SESIONES, []); }
+    function guardarSesiones(s){ guardarLocal(KEY_SESIONES, s); }
+
+    function guardarSesion(ev){
+      ev.preventDefault();
+      const hoy = new Date();
+      const fechaISO = hoy.toISOString().slice(0,10);
+
+      const sesion = {
+        fecha: fechaISO,
+        tipo: document.getElementById('sesion-tipo').value,
+        nivel: document.getElementById('sesion-nivel').value,
+        energia: Number(document.getElementById('sesion-energia').value),
+        rpe: Number(document.getElementById('sesion-rpe').value),
+        cumplimiento: document.getElementById('sesion-cumplimiento').value
+      };
+
+      const sesiones = obtenerSesiones();
+      sesiones.push(sesion);
+      guardarSesiones(sesiones);
+
+      renderSesiones();
+      actualizarResumenSesiones6S();
+      alert('Sesión registrada.');
+
+      document.getElementById('form-sesion').reset();
+      document.getElementById('sesion-energia').value = 6;
+      document.getElementById('sesion-rpe').value = 7;
+      document.getElementById('sesion-energia-valor').textContent = '6';
+      document.getElementById('sesion-rpe-valor').textContent = '7';
+    }
+
+    function renderSesiones(){
+      const cont = document.getElementById('log-list');
+      const sesiones = obtenerSesiones();
+      if(!sesiones.length){
+        cont.innerHTML = '<div class="muted">Sin sesiones aún. Empieza esta semana.</div>';
+        return;
+      }
+      sesiones.sort((a,b) => (a.fecha < b.fecha ? 1 : -1));
+      cont.innerHTML = '';
+
+      sesiones.forEach(s => {
+        const div = document.createElement('div');
+        div.className = 'log-item';
+        div.innerHTML = `
+          <div class="log-header">
+            <span>${formatoFechaCorta(s.fecha)} · Sesión ${s.tipo}</span>
+            <span>${s.nivel}</span>
+          </div>
+          <div class="log-meta">Energía ${s.energia}/10 · RPE ${s.rpe}/10 · ${s.cumplimiento}</div>
+        `;
+        cont.appendChild(div);
+      });
+    }
+
+    function actualizarResumenSesiones6S(){
+      const sesiones = obtenerSesiones();
+      const hoy = new Date().getTime();
+      const ms42 = 42 * 24 * 60 * 60 * 1000;
+      const hace42 = hoy - ms42;
+
+      const ult42 = sesiones.filter(s => {
+        const t = new Date(s.fecha).getTime();
+        return !isNaN(t) && t >= hace42;
+      });
+
+      const entrenos = ult42.filter(s => s.cumplimiento !== 'no-entreno').length;
+      document.getElementById('resumen-sesiones-6s').textContent = `${entrenos} sesiones en 6 semanas`;
+
+      const objetivo = 18;
+      const porcentaje = Math.max(0, Math.min(100, (entrenos / objetivo) * 100));
+      const barra = document.getElementById('progreso-barra');
+      if(barra) barra.style.width = porcentaje + '%';
+    }
+
+    function resetSesiones(){
+      if(!confirm('¿Seguro que quieres borrar todas las sesiones guardadas?')) return;
+      localStorage.removeItem(KEY_SESIONES);
+      guardarSesiones([]);
+      renderSesiones();
+      actualizarResumenSesiones6S();
+    }
+
+    // ===== FECHA Y SLIDERS =====
+    function initFechaHoy(){
+      const hoy = new Date();
+      const opciones = { weekday:'short', day:'2-digit', month:'short' };
+      document.getElementById('hoy-fecha').textContent = hoy.toLocaleDateString('es-ES', opciones);
+    }
+    function initSliders(){
+      const ene = document.getElementById('sesion-energia');
+      const eneVal = document.getElementById('sesion-energia-valor');
+      ene.addEventListener('input', () => eneVal.textContent = ene.value);
+
+      const rpe = document.getElementById('sesion-rpe');
+      const rpeVal = document.getElementById('sesion-rpe-valor');
+      rpe.addEventListener('input', () => rpeVal.textContent = rpe.value);
+    }
+
+    // ===== PDF =====
+    function prepararPDFInicial(){
+      const a = leerLocal(KEY_ALUMNO, { nombre:'', curso:'', deporte:'' });
+      const p = leerLocal(KEY_PRUEBAS, { inicial:null, final:null });
+
+      document.getElementById('pri-nombre').textContent = a.nombre || '—';
+      document.getElementById('pri-curso').textContent  = a.curso || '—';
+      document.getElementById('pri-deporte').textContent= a.deporte || '—';
+
+      const subt = (a.nombre || 'Alumno') + ' · ' + (a.curso || '—') + ' · IES Marqués de Comares';
+      document.getElementById('pri-subtitle').textContent = subt;
+
+      const fecha = p.inicial?.fecha ? formatoFechaLarga(p.inicial.fecha) : '—';
+      document.getElementById('pri-fecha').textContent = fecha;
+
+      const tbody = document.getElementById('pri-tabla');
+      tbody.innerHTML = '';
+
+      if(!p.inicial){
+        tbody.innerHTML = `<tr><td colspan="2">Faltan pruebas iniciales.</td></tr>`;
+        return;
+      }
+
+      const rows = [
+        ['Flexiones', `${Number(p.inicial.flexiones ?? 0)} rep`],
+        ['Sentadillas 30"', `${Number(p.inicial.sentadillas ?? 0)} rep`],
+        ['Plancha', `${Number(p.inicial.plancha ?? 0)} s`],
+        ['Salto horizontal', `${Number(p.inicial.salto ?? 0)} cm`],
+      ];
+
+      rows.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td><strong>${r[0]}</strong></td><td>${r[1]}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function prepararPDFFull(){
+      const a = leerLocal(KEY_ALUMNO, { nombre:'', curso:'', sexo:'', deporte:'' });
+      const p = leerLocal(KEY_PRUEBAS, { inicial:null, final:null });
+      const sesiones = obtenerSesiones();
+
+      const estado = (p.inicial && p.final) ? 'Programa completado'
+                   : (p.inicial ? 'En programa (faltan finales)' : 'Faltan iniciales');
+
+      // Cabecera resumen
+      document.getElementById('prf-nombre').textContent = a.nombre || '—';
+      document.getElementById('prf-curso').textContent  = a.curso || '—';
+      document.getElementById('prf-deporte').textContent= a.deporte || '—';
+      document.getElementById('prf-estado').textContent = estado;
+
+      const subt = (a.nombre || 'Alumno') + ' · ' + (a.curso || '—') + ' · IES Marqués de Comares';
+      document.getElementById('prf-subtitle').textContent = subt;
+
+      // 1) Datos alumno
+      document.getElementById('prf-a-nombre').textContent = a.nombre || '—';
+      document.getElementById('prf-a-curso').textContent  = a.curso || '—';
+      document.getElementById('prf-a-sexo').textContent   = sexoLegible(a.sexo);
+      document.getElementById('prf-a-deporte').textContent= a.deporte || '—';
+
+      // Sesiones últimas 6 semanas
+      const hoy = new Date().getTime();
+      const ms42 = 42 * 24 * 60 * 60 * 1000;
+      const hace42 = hoy - ms42;
+
+      const ult42 = sesiones
+        .filter(s => {
+          const t = new Date(s.fecha).getTime();
+          return !isNaN(t) && t >= hace42 && s.cumplimiento !== 'no-entreno';
+        })
+        .sort((x,y) => (x.fecha > y.fecha ? 1 : -1));
+
+      document.getElementById('prf-sesiones').textContent = `${ult42.length}`;
+      document.getElementById('prf-fechas').textContent = ult42.map(s => formatoFechaCorta(s.fecha)).join(', ') || '—';
+
+      // 2) Pruebas iniciales
+      const iniFecha = p.inicial?.fecha ? formatoFechaLarga(p.inicial.fecha) : '—';
+      document.getElementById('prf-inicial-fecha').textContent = `Fecha: ${iniFecha}`;
+
+      const tbodyIni = document.getElementById('prf-tabla-inicial');
+      tbodyIni.innerHTML = '';
+      if (!p.inicial){
+        tbodyIni.innerHTML = `<tr><td colspan="2">Faltan pruebas iniciales.</td></tr>`;
+      } else {
+        const rowsIni = [
+          ['Flexiones', `${Number(p.inicial.flexiones ?? 0)} rep`],
+          ['Sentadillas 30"', `${Number(p.inicial.sentadillas ?? 0)} rep`],
+          ['Plancha', `${Number(p.inicial.plancha ?? 0)} s`],
+          ['Salto horizontal', `${Number(p.inicial.salto ?? 0)} cm`],
+        ];
+        rowsIni.forEach(r => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td><strong>${r[0]}</strong></td><td>${r[1]}</td>`;
+          tbodyIni.appendChild(tr);
+        });
+      }
+
+      // 3) Sesión última generada
+      document.getElementById('prf-plan-resumen').textContent =
+        LAST_PLAN_RESUMEN || 'No hay sesión generada reciente (pulsa “Generar sesión…” antes de exportar).';
+
+      const planCont = document.getElementById('prf-plan-contenido');
+      planCont.innerHTML = LAST_PLAN_HTML || '<div class="pr-note">Sin tabla de sesión generada.</div>';
+
+      // 4) Tabla de sesiones (últimas 12)
+      const tbodySes = document.getElementById('prf-tabla-sesiones');
+      tbodySes.innerHTML = '';
+      const ult = [...sesiones].sort((a,b) => (a.fecha < b.fecha ? 1 : -1)).slice(0, 12);
+
+      if(!ult.length){
+        tbodySes.innerHTML = `<tr><td colspan="6">No hay sesiones registradas.</td></tr>`;
+      } else {
+        ult.forEach(s => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${escapeHTML(formatoFechaCorta(s.fecha))}</td>
+            <td>${escapeHTML(s.tipo)}</td>
+            <td>${escapeHTML(s.nivel)}</td>
+            <td>${escapeHTML(s.energia)}/10</td>
+            <td>${escapeHTML(s.rpe)}/10</td>
+            <td>${escapeHTML(s.cumplimiento)}</td>
+          `;
+          tbodySes.appendChild(tr);
+        });
+      }
+
+      // 5) Pruebas finales
+      const finFecha = p.final?.fecha ? formatoFechaLarga(p.final.fecha) : '—';
+      document.getElementById('prf-final-fecha').textContent = `Fecha: ${finFecha}`;
+
+      const tbodyFin = document.getElementById('prf-tabla-final');
+      tbodyFin.innerHTML = '';
+      if (!p.final){
+        tbodyFin.innerHTML = `<tr><td colspan="2">Faltan pruebas finales.</td></tr>`;
+      } else {
+        const rowsFin = [
+          ['Flexiones', `${Number(p.final.flexiones ?? 0)} rep`],
+          ['Sentadillas 30"', `${Number(p.final.sentadillas ?? 0)} rep`],
+          ['Plancha', `${Number(p.final.plancha ?? 0)} s`],
+          ['Salto horizontal', `${Number(p.final.salto ?? 0)} cm`],
+        ];
+        rowsFin.forEach(r => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td><strong>${r[0]}</strong></td><td>${r[1]}</td>`;
+          tbodyFin.appendChild(tr);
+        });
+      }
+
+      // Comparativa
+      const per = (p.inicial && p.final)
+        ? `Periodo: ${formatoFechaLarga(p.inicial.fecha)} → ${formatoFechaLarga(p.final.fecha)}`
+        : 'Periodo: —';
+      document.getElementById('prf-periodo').textContent = per;
+
+      const tbody = document.querySelector('#prf-tabla tbody');
+      tbody.innerHTML = '';
+
+      if(!(p.inicial && p.final)){
+        tbody.innerHTML = `<tr><td colspan="5">Faltan pruebas iniciales o finales.</td></tr>`;
+      } else {
+        METRICAS.forEach(m => {
+          const ini = Number(p.inicial[m.k] ?? 0);
+          const fin = Number(p.final[m.k] ?? 0);
+          const dif = fin - ini;
+          const pct = ini > 0 ? ((dif/ini)*100).toFixed(1) : '—';
+
+          const cls = dif>0 ? 'pr-good' : (dif<0 ? 'pr-bad' : '');
+          const signo = dif>0 ? '+' : '';
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><strong>${m.name}</strong></td>
+            <td>${ini} ${m.unit}</td>
+            <td>${fin} ${m.unit}</td>
+            <td class="${cls}">${signo}${dif} ${m.unit}</td>
+            <td class="${cls}">${pct === '—' ? '—' : (signo + pct + ' %')}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // GRÁFICAS EN PDF
+      // 1) Copiamos el HTML de la gráfica rápida (DOM) a un bloque de impresión
+      const prCss = document.getElementById('prf-grafico-css');
+      prCss.innerHTML = '';
+      const boxApp = document.getElementById('grafico-css');
+      if (boxApp && boxApp.innerHTML.trim()){
+        prCss.innerHTML = boxApp.innerHTML;
+      } else {
+        prCss.innerHTML = `<div class="pr-note">No hay gráfica rápida disponible.</div>`;
+      }
+
+      // 2) Canvas -> Imagen (para que imprima SIEMPRE)
+      const img = document.getElementById('prf-canvas-img');
+      const canvas = document.getElementById('canvas-grafico');
+      if (img && canvas){
+        try{
+          if (p.inicial && p.final){
+            renderGraficoCanvas(p);
+          }
+          img.src = canvas.toDataURL('image/png');
+        }catch(e){
+          console.error(e);
+          img.removeAttribute('src');
+        }
+      }
+    }
+
+    function imprimirModo(modo){
+      document.body.classList.remove('print-inicial', 'print-full');
+      document.body.classList.add(modo);
+
+      // Espera un pelín para que el DOM y la imagen del canvas se actualicen antes del print
+      setTimeout(() => {
+        window.print();
+        setTimeout(() => {
+          document.body.classList.remove('print-inicial', 'print-full');
+        }, 300);
+      }, 120);
+    }
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', () => {
+      // Alumno
+      cargarAlumno();
+      ['alumno-nombre','alumno-curso','alumno-sexo','alumno-deporte'].forEach(id => {
+        document.getElementById(id).addEventListener('change', guardarAlumnoAuto);
+      });
+
+      // Pruebas
+      cargarPruebas();
+      document.getElementById('form-pruebas-iniciales').addEventListener('submit', guardarPruebasIniciales);
+      document.getElementById('form-pruebas-finales').addEventListener('submit', guardarPruebasFinales);
+
+      // Sesión
+      initFechaHoy();
+      initSliders();
+      document.getElementById('sesion-tipo').addEventListener('change', generarSesionActual);
+      document.getElementById('sesion-nivel').addEventListener('change', generarSesionActual);
+      document.getElementById('btn-generar-sesion').addEventListener('click', generarSesionActual);
+      generarSesionActual();
+
+      // Registro sesiones
+      document.getElementById('form-sesion').addEventListener('submit', guardarSesion);
+      document.getElementById('btn-reset-sesiones').addEventListener('click', resetSesiones);
+      renderSesiones();
+      actualizarResumenSesiones6S();
+
+      // Toggle gráficas
+      document.getElementById('btn-toggle-graficas').addEventListener('click', () => {
+        const wrap = document.getElementById('graficas-wrap');
+        const boxCSS = document.getElementById('grafico-css');
+        const wrapCanvas = document.getElementById('grafico-canvas-wrap');
+
+        const p = leerLocal(KEY_PRUEBAS, { inicial:null, final:null });
+        if(!(p.inicial && p.final)){
+          alert('Primero guarda las pruebas iniciales y finales para ver las gráficas.');
+          return;
+        }
+
+        const willShow = (wrap.style.display !== 'block');
+        wrap.style.display = willShow ? 'block' : 'none';
+        boxCSS.style.display = willShow ? 'block' : 'none';
+        wrapCanvas.style.display = willShow ? 'block' : 'none';
+
+        if(willShow){
+          renderGraficoCSS(p);
+          renderGraficoCanvas(p);
+        }
+      });
+
+      // PDF inicial (solo 1+2)
+      document.getElementById('btn-pdf-inicial').addEventListener('click', () => {
+        prepararPDFInicial();
+        imprimirModo('print-inicial');
+      });
+
+      // PDF completo (todo)
+      document.getElementById('btn-pdf-full').addEventListener('click', () => {
+        prepararPDFFull();
+        imprimirModo('print-full');
+      });
+    });
+  </script>
+
+<footer class="credits">
+  <p><strong>Proyecto realizado por Juan Luis Sáez Escobar.</strong></p>
+  <p>Código desarrollado con apoyo de IA y revisado por el profesorado.</p>
+</footer>
+</body>
+</html>
